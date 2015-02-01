@@ -5,7 +5,7 @@
  */
 package hibernate;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int salary;
-    private List certificates;
+    private Collection certificates;
 
 
     public Employee() {}
@@ -56,10 +56,10 @@ public class Employee {
         this.salary = salary;
     }
     
-    public List getCertificates() {
+    public Collection getCertificates() {
       return certificates;
     }
-    public void setCertificates( List certificates ) {
+    public void setCertificates( Collection certificates ) {
       this.certificates = certificates;
     }
 }
