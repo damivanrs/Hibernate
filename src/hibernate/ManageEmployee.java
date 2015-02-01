@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
 
  
 import org.hibernate.HibernateException; 
@@ -29,7 +30,7 @@ public class ManageEmployee {
    }
    
    /* Method to add an employee record in the database */
-   public Integer addEmployee(String fname, String lname, int salary, HashMap cert){
+   public Integer addEmployee(String fname, String lname, int salary, TreeMap cert){
       Session session = factory.openSession();
       Transaction tx = null;
       Integer employeeID = null;

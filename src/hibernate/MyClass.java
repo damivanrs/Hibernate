@@ -11,8 +11,8 @@ import java.util.Comparator;
  *
  * @author Ivan
  */
-public class MyClass implements Comparator<Certificate>{
-   public int compare(Certificate o1, Certificate o2) {
+public class MyClass implements  Comparator <String>{
+   public int compare(String o1, String o2) {
       final int BEFORE = -1;
       final int AFTER = 1;
 
@@ -21,8 +21,8 @@ public class MyClass implements Comparator<Certificate>{
          return BEFORE * -1;
       }
 
-      Comparable thisCertificate = o1.getCertificateName();
-      Comparable thatCertificate = o2.getCertificateName();
+      Comparable thisCertificate = o1;
+      Comparable thatCertificate = o2;
 
       if(thisCertificate == null) {
          return AFTER * 1;
