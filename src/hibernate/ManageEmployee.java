@@ -1,15 +1,8 @@
 package hibernate;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List; 
 import java.util.Iterator; 
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeMap;
 import org.hibernate.Criteria;
 
  
@@ -28,6 +21,7 @@ public class ManageEmployee {
    private static SessionFactory factory; 
    public ManageEmployee(){
        Configuration conf=new Configuration();
+       conf.setInterceptor(new MyInterceptor());
        conf.configure();
        ServiceRegistry serv = new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
        factory=conf.buildSessionFactory(serv);
