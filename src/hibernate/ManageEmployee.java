@@ -3,8 +3,10 @@ package hibernate;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List; 
 import java.util.Iterator; 
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -27,7 +29,7 @@ public class ManageEmployee {
    }
    
    /* Method to add an employee record in the database */
-   public Integer addEmployee(String fname, String lname, int salary, ArrayList cert){
+   public Integer addEmployee(String fname, String lname, int salary, HashMap cert){
       Session session = factory.openSession();
       Transaction tx = null;
       Integer employeeID = null;
@@ -59,11 +61,13 @@ public class ManageEmployee {
             System.out.print("First Name: " + employee.getFirstName()); 
             System.out.print("  Last Name: " + employee.getLastName()); 
             System.out.println("  Salary: " + employee.getSalary());
-            Collection certificates = employee.getCertificates();
-            for (Iterator iterator2 = certificates.iterator(); iterator2.hasNext();){
-                  Certificate certName = (Certificate) iterator2.next(); 
-                  System.out.println("Certificate: " + certName.getCertificateName()); 
-            }
+            Map ec = employee.getCertificates();
+            System.out.println("Certificate: " + 
+              (((Certificate)ec.get("ComputerScience")).getCertificateName()));
+            System.out.println("Certificate: " + 
+              (((Certificate)ec.get("BusinessManagement")).getCertificateName()));
+            System.out.println("Certificate: " + 
+              (((Certificate)ec.get("ProjectManagement")).getCertificateName()));         
          } 
          tx.commit(); 
       }catch (HibernateException e) {
@@ -80,8 +84,7 @@ public class ManageEmployee {
       Transaction tx = null;
       try{
          tx = session.beginTransaction();
-         Employee employee = 
-                    (Employee)session.get(Employee.class, EmployeeID); 
+         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
          employee.setSalary( salary );
          session.update(employee);
          tx.commit();
@@ -98,8 +101,7 @@ public class ManageEmployee {
       Transaction tx = null;
       try{
          tx = session.beginTransaction();
-         Employee employee = 
-                   (Employee)session.get(Employee.class, EmployeeID); 
+         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
          session.delete(employee); 
          tx.commit();
       }catch (HibernateException e) {

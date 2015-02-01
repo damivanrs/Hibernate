@@ -5,7 +5,7 @@
  */
 package hibernate;
 
-import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int salary;
-    private Collection certificates;
+    private Map certificates;
 
 
     public Employee() {}
@@ -56,10 +56,10 @@ public class Employee {
         this.salary = salary;
     }
     
-    public Collection getCertificates() {
+    public Map getCertificates() {
       return certificates;
     }
-    public void setCertificates( Collection certificates ) {
+    public void setCertificates( Map certificates ) {
       this.certificates = certificates;
     }
 }
