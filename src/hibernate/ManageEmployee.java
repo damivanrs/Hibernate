@@ -13,6 +13,7 @@ import java.util.TreeMap;
 
  
 import org.hibernate.HibernateException; 
+import org.hibernate.Query;
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
@@ -88,6 +89,26 @@ public class ManageEmployee {
          Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
          employee.setSalary( salary );
          session.update(employee);
+         tx.commit();
+      }catch (HibernateException e) { 
+           if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+   }
+   
+       /* Method to update salary for all employee at 10% more */
+   public void updateSalaryEmployee(){
+      Session session = factory.openSession();
+      Transaction tx = null;
+      int salaryBegin=0;
+      try{
+         tx = session.beginTransaction();
+         String hql= "UPDATE Employee set salary = salary*1.1";
+         Query query=session.createQuery(hql);
+         int result=query.executeUpdate();
+         System.out.println("Rows affected: "+result);
          tx.commit();
       }catch (HibernateException e) { 
            if (tx!=null) tx.rollback();

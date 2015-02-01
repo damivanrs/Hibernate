@@ -35,8 +35,12 @@ public class Main {
       /* List down all the employees */
       ME.listEmployees();
 
+      
       /* Update employee's salary records */
-      ME.updateEmployee(empID1, 5000);
+      //ME.updateEmployee(empID1, 5000);
+      
+      ME.updateSalaryEmployee();
+      
 
       /* List down all the employees */
       ME.listEmployees();
