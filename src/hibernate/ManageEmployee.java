@@ -1,6 +1,7 @@
 package hibernate;
 
 
+import java.util.ArrayList;
 import java.util.List; 
 import java.util.Iterator; 
 import java.util.Set;
@@ -25,7 +26,7 @@ public class ManageEmployee {
    }
    
    /* Method to add an employee record in the database */
-   public Integer addEmployee(String fname, String lname, int salary, SortedSet cert){
+   public Integer addEmployee(String fname, String lname, int salary, ArrayList cert){
       Session session = factory.openSession();
       Transaction tx = null;
       Integer employeeID = null;
@@ -57,7 +58,7 @@ public class ManageEmployee {
             System.out.print("First Name: " + employee.getFirstName()); 
             System.out.print("  Last Name: " + employee.getLastName()); 
             System.out.println("  Salary: " + employee.getSalary());
-            Set certificates = employee.getCertificates();
+            List certificates = employee.getCertificates();
             for (Iterator iterator2 = certificates.iterator(); iterator2.hasNext();){
                   Certificate certName = (Certificate) iterator2.next(); 
                   System.out.println("Certificate: " + certName.getCertificateName()); 
