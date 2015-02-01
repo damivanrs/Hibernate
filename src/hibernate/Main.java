@@ -6,6 +6,7 @@
 package hibernate;
 
 import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Main {
        public static void main(String[] args) {     
       ManageEmployee ME = new ManageEmployee();
       /* Let us have a set of certificates for the first employee  */
-      HashSet set1 = new HashSet();
+      TreeSet set1 = new TreeSet();
       set1.add(new Certificate("MCA"));
       set1.add(new Certificate("MBA"));
       set1.add(new Certificate("PMP"));
@@ -24,7 +25,7 @@ public class Main {
       Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1);
 
       /* Another set of certificates for the second employee  */
-      HashSet set2 = new HashSet();
+      TreeSet set2 = new TreeSet();
       set2.add(new Certificate("BCA"));
       set2.add(new Certificate("BA"));
 

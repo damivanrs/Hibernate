@@ -6,6 +6,7 @@
 package hibernate;
 
 import java.util.Set;
+import java.util.SortedSet;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int salary;
-    private Set certificates;
+    private SortedSet certificates;
 
 
     public Employee() {}
@@ -56,10 +57,10 @@ public class Employee {
         this.salary = salary;
     }
     
-       public Set getCertificates() {
+       public SortedSet getCertificates() {
       return certificates;
    }
-   public void setCertificates( Set certificates ) {
+   public void setCertificates( SortedSet certificates ) {
       this.certificates = certificates;
    }
 }

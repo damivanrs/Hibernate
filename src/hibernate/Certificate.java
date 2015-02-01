@@ -10,7 +10,7 @@ package hibernate;
  * @author Ivan
  */
 
-public class Certificate {
+public class Certificate implements Comparable <Certificate> {
     private static final long serialVersionUID = 1L;
     private int id;
     private String certificateName;
@@ -38,28 +38,23 @@ public class Certificate {
         this.certificateName = certificateName;
     }
 
-    public int hashCode() {
-        int tmp = 0; 
-        tmp = ( id + certificateName ).hashCode(); 
-        return tmp;
-    }
+    public int compareTo(Certificate that){
+      final int BEFORE = -1;
+      final int AFTER = 1;
 
-    @Override
-    public boolean equals(Object obj) {
-      if (obj == null) return false;
-      if (!this.getClass().equals(obj.getClass())) return false;
-
-      Certificate obj2 = (Certificate)obj;
-      if((this.id == obj2.getId()) && (this.certificateName.equals(obj2.getCertificateName())))
-      {
-         return true;
+      if (that == null) {
+         return BEFORE;
       }
-      return false;
-   }
 
-    @Override
-    public String toString() {
-        return "hibernate.Certificate[ id=" + id + " ]";
-    }
-    
+      Comparable thisCertificate = this.getCertificateName();
+      Comparable thatCertificate = that.getCertificateName();
+
+      if(thisCertificate == null) {
+         return AFTER;
+      } else if(thatCertificate == null) {
+         return BEFORE;
+      } else {
+         return thisCertificate.compareTo(thatCertificate);
+      }
+   }
 }
