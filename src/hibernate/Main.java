@@ -14,32 +14,22 @@ import java.util.TreeMap;
 public class Main {
        public static void main(String[] args) {     
       ManageEmployee ME = new ManageEmployee();
-      /* Let us have a set of certificates for the first employee  */
-      TreeMap set1 = new TreeMap ();
-      set1.put("ComputerScience", new Certificate("MCA"));
-      set1.put("BusinessManagement", new Certificate("MBA"));
-      set1.put("ProjectManagement", new Certificate("PMP"));
+      /* Add few employee records in database */
+      Integer empID1 = ME.addEmployee("Zara", "Ali", 2000);
+      Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
+      Integer empID3 = ME.addEmployee("John", "Paul", 5000);
+      Integer empID4 = ME.addEmployee("Mohd", "Yasee", 3000);
      
-      /* Add employee records in the database */
-      Integer empID1 = ME.addEmployee("Manoj", "Kumar", 4000, set1);
-      
-      /* Another set of certificates for the second employee  */
-      TreeMap set2 = new TreeMap();
-      set2.put("ComputerScience", new Certificate("MCA"));
-      set2.put("BusinessManagement", new Certificate("MBA"));
-      set2.put("ProjectManagement", new Certificate("PMP"));
-
-      /* Add another employee record in the database */
-      Integer empID2 = ME.addEmployee("Dilip", "Kumar", 3000, set2);
-
       /* List down all the employees */
       ME.listEmployees();
 
-      
-      /* Update employee's salary records */
-      //ME.updateEmployee(empID1, 5000);
-      
-      ME.updateSalaryEmployee();
+      /* Print Total employee's count */
+      ME.countEmployee();
+
+      /* Print Toatl salary */
+      ME.totalSalary();
+
+     //ME.updateSalaryEmployee();
       
 
       /* List down all the employees */

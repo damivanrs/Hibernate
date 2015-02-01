@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
+import org.hibernate.Criteria;
 
  
 import org.hibernate.HibernateException; 
@@ -18,6 +19,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -31,14 +34,13 @@ public class ManageEmployee {
    }
    
    /* Method to add an employee record in the database */
-   public Integer addEmployee(String fname, String lname, int salary, TreeMap cert){
+   public Integer addEmployee(String fname, String lname, int salary){
       Session session = factory.openSession();
       Transaction tx = null;
       Integer employeeID = null;
       try{
          tx = session.beginTransaction();
          Employee employee = new Employee(fname, lname, salary);
-         employee.setCertificates(cert);
          employeeID = (Integer) session.save(employee); 
          tx.commit();
       }catch (HibernateException e) {
@@ -56,21 +58,17 @@ public class ManageEmployee {
       Transaction tx = null;
       try{
          tx = session.beginTransaction();
-         List employees = session.createQuery("FROM Employee").list(); 
-         for (Iterator iterator1 = 
-                           employees.iterator(); iterator1.hasNext();){
-            Employee employee = (Employee) iterator1.next(); 
+         Criteria cr = session.createCriteria(Employee.class);
+         // Add restriction.
+         cr.add(Restrictions.gt("salary", 2000));
+         List employees = cr.list();
+
+         for (Iterator iterator = employees.iterator(); iterator.hasNext();){
+            Employee employee = (Employee) iterator.next(); 
             System.out.print("First Name: " + employee.getFirstName()); 
             System.out.print("  Last Name: " + employee.getLastName()); 
             System.out.println("  Salary: " + employee.getSalary());
-            Map ec = employee.getCertificates();
-            System.out.println("Certificate: " + 
-              (((Certificate)ec.get("ComputerScience")).getCertificateName()));
-            System.out.println("Certificate: " + 
-              (((Certificate)ec.get("BusinessManagement")).getCertificateName()));
-            System.out.println("Certificate: " + 
-              (((Certificate)ec.get("ProjectManagement")).getCertificateName()));         
-         } 
+        } 
          tx.commit(); 
       }catch (HibernateException e) {
          if (tx!=null) tx.rollback();
@@ -79,6 +77,50 @@ public class ManageEmployee {
          session.close(); 
       }
    }
+   
+   /* Method to print total number of records */
+   public void countEmployee(){
+      Session session = factory.openSession();
+      Transaction tx = null;
+      try{
+         tx = session.beginTransaction();
+         Criteria cr = session.createCriteria(Employee.class);
+
+         // To get total row count.
+         cr.setProjection(Projections.rowCount());
+         List rowCount = cr.list();
+
+         System.out.println("Total Coint: " + rowCount.get(0) );
+         tx.commit();
+      }catch (HibernateException e) {
+         if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+   }
+   
+   /* Method to print sum of salaries */ 
+   public void totalSalary(){ 
+      Session session = factory.openSession();
+      Transaction tx = null;
+      try{
+         tx = session.beginTransaction();
+         Criteria cr = session.createCriteria(Employee.class);
+
+         // To get total salary.
+         cr.setProjection(Projections.sum("salary"));
+         List totalSalary = cr.list();
+
+         System.out.println("Total Salary: " + totalSalary.get(0) );
+         tx.commit();
+      }catch (HibernateException e) {
+         if (tx!=null) tx.rollback();
+         e.printStackTrace(); 
+      }finally {
+         session.close(); 
+      }
+   } 
    
       /* Method to update salary for an employee */
    public void updateEmployee(Integer EmployeeID, int salary ){

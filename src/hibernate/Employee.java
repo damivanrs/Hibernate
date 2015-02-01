@@ -17,7 +17,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int salary;
-    private SortedMap certificates;
+    
 
 
     public Employee() {}
@@ -54,12 +54,5 @@ public class Employee {
 
     public void setSalary(int salary) {
         this.salary = salary;
-    }
-    
-    public SortedMap getCertificates() {
-      return certificates;
-    }
-    public void setCertificates( SortedMap certificates ) {
-      this.certificates = certificates;
     }
 }
